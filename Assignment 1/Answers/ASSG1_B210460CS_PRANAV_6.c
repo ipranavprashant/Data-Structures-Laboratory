@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 struct Node
 {
@@ -74,24 +73,6 @@ void PRINT(struct Node *root, int x, int y)
     PRINT(root->right, x, y);
 }
 
-bool printAncestors(struct Node *root, int target)
-{
-
-    if (root == NULL)
-        return false;
-
-    if (root->k == target)
-        return true;
-    if (printAncestors(root->left, target) ||
-        printAncestors(root->right, target))
-    {
-
-        printf("%d ", root->k);
-        return true;
-    }
-
-    return false;
-}
 
 int main()
 {
