@@ -86,9 +86,9 @@ struct Node *find(struct Node *root, int x)
 
 //A Better search function
 /*
-struct node * search(struct Node *root,int key)
+struct Node * search(struct Node *root,int key)
 {
-    struct node *t=root;
+    struct Node *t=root;
     while(t!=NULL)
     {
         if(key==t->data)
