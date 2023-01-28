@@ -84,6 +84,24 @@ struct Node *find(struct Node *root, int x)
     return NULL;
 }
 
+//A Better search function
+/*
+struct node * search(int key)
+{
+    struct node *t=root;
+    while(t!=NULL)
+    {
+        if(key==t->data)
+        return t;
+        else if(key<t->data)
+        t=t->lchild;
+        else
+        t=t->rchild;
+    }
+    return NULL;
+}
+*/
+
 /*Method-I */
 
 void nth_dist(struct Node *root, int depth, int dist)
