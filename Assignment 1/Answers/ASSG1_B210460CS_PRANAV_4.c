@@ -3,295 +3,484 @@
 
 struct node
 {
-    int key;
-    struct node *left;
-    struct node *right;
-} *root = NULL;
+    struct node *lchild;
+    int data;
+    struct node *rchild;
+}*root=NULL;
 
-struct node *Create_node(int key)
+void insert(int key)
 {
-    struct node *temp = (struct node *)malloc(sizeof(struct node));
-    temp->key = key;
-    temp->left = NULL;
-    temp->right = NULL;
-    return temp;
-}
+    struct node *t=root;
+    struct node *r=NULL,*p;
 
-struct node *Insert(struct node *root, int key)
-{
-    if (root == NULL)
+    if(root==NULL)
     {
-        return Create_node(key);
+        p=(struct node *)malloc(sizeof(struct node));
+        p->lchild=NULL;
+        p->data=key;
+        p->rchild=NULL;
+        root=p;
+        return;
     }
-    else if (key < root->key)
-        root->left = Insert(root->left, key);
-    else
-        root->right = Insert(root->right, key);
-
-    return root;
-}
-
-struct node *inorder(struct node *root)
-{
-    if (root == NULL)
-        return NULL;
-    else
+    while(t!=NULL)
     {
-        inorder(root->left);
-        printf("%d ", root->key);
-        inorder(root->right);
-    }
-}
-
-struct node *preorder(struct node *root)
-{
-    if (root == NULL)
-        return NULL;
-    else
-    {
-        printf("%d ", root->key);
-        preorder(root->left);
-        preorder(root->right);
-    }
-}
-
-struct node *postorder(struct node *root)
-{
-    if (root == NULL)
-        return NULL;
-    else
-    {
-        postorder(root->left);
-        postorder(root->right);
-        printf("%d ", root->key);
-    }
-}
-
-struct node *search(struct node *root, int key)
-{
-    if (root == NULL)
-        return NULL;
-    if (root->key == key)
-        return root;
-
-    else if (key < root->key)
-        search(root->left, key);
-
-    else
-        search(root->right, key);
-}
-
-int min(struct node *root)
-{
-    if (root == NULL)
-        return -1;
-    while (root->left != NULL)
-    {
-        root = root->left;
-    }
-    return root->key;
-}
-
-int max(struct node *root)
-{
-    if (root == NULL)
-        return -1;
-    while (root->right != NULL)
-    {
-        root = root->right;
-    }
-    return root->key;
-}
-
-struct node *inorderSucc(struct node *root)
-{
-    if (root == NULL)
-        return NULL;
-    else
-    {
-        while (root != NULL && root->left != NULL)
-        {
-            root = root->left;
-        }
-        return root;
-    }
-    return root;
-}
-
-struct node *inorderPre(struct node *root)
-{
-    if (root == NULL)
-        return NULL;
-    else
-    {
-        while (root != NULL && root->right != NULL)
-        {
-            root = root->right;
-        }
-        return root;
-    }
-    return root;
-}
-
-struct node *delete(struct node *root, int key)
-{
-    if (root == NULL)
-        return NULL;
-    if (key < root->key)
-        root->left = delete (root->left, key);
-    else if (key > root->key)
-        root->right = delete (root->right, key);
-
-    else
-    {
-        if (root->left == NULL)
-        {
-            struct node *temp = root->right;
-            free(root);
-            return temp;
-        }
-        else if (root->right == NULL)
-        {
-            struct node *temp = root->left;
-            free(root);
-            return temp;
-        }
+        r=t;
+        if(key<t->data)
+        t=t->lchild;
+        else if(key>t->data)
+        t=t->rchild;
         else
-        {
-            struct node *temp = inorderSucc(root->right);
-            root->key = temp->key;
-            root->right = delete (root->right, temp->key);
-        }
+        return;
+    }
+        p=(struct node *)malloc(sizeof(struct node));
+        p->lchild=NULL;
+        p->data=key;
+        p->rchild=NULL;
+
+        if(key<r->data)
+        r->lchild=p;
+        else
+        r->rchild=p;    
+}
+
+void preorder(struct node *p)
+{
+    if(p)
+    {
+        printf("%d ",p->data);
+        preorder(p->lchild);
+        preorder(p->rchild);
+    }
+
+}
+
+void inorder(struct node *p)
+{
+    if(p)
+    {
+        inorder(p->lchild);
+        printf("%d ",p->data);
+        inorder(p->rchild);
+    }
+
+}
+
+void postorder(struct node *p)
+{
+    if(p)
+    {
+        postorder(p->lchild);
+        postorder(p->rchild);
+        printf("%d ",p->data);
+    }
+}
+
+struct node * search(int key)
+{
+    struct node *t=root;
+    while(t!=NULL)
+    {
+        if(key==t->data)
+        return t;
+        else if(key<t->data)
+        t=t->lchild;
+        else
+        t=t->rchild;
+    }
+    return NULL;
+}
+
+// Function to find the node with maximum value
+// i.e. rightmost leaf node
+int max(struct node* node)
+{  
+    /* loop down to find the rightmost leaf */
+    if(root==NULL)
+    return -1;
+    else{
+    struct node* current = node;
+    while (current->rchild != NULL)
+        current = current->rchild;
+     
+    return (current->data);
+    }
+}
+
+// Function to find the node with minimum value
+// i.e. lefttmost leaf node
+int min(struct node* node)
+{  
+    if(root==NULL)
+    return -1;
+    else
+    {
+    /* loop down to find the leftmost leaf */
+    struct node* current = node;
+    while (current->lchild != NULL)
+        current = current->lchild;
+     
+    return (current->data);
+    }
+}
+
+
+// Function to find maximum node in a BST
+struct node* maximumNode(struct node *root)
+{
+    while (root->rchild) {
+        root = root->rchild;
     }
     return root;
 }
 
-int getLevel(struct node *root, int data, int level)
+// Pred node is passed by reference meaning it is making changes in the original node
+/*int findPredecessor(struct node* root,struct node* pred, int key)
+{
+    // base case
+    if (root == NULL)
+    {
+        pred = NULL;
+        return -1;
+    }
+    
+    // if the root is our key node then the predecessor will be the largest node in its left subtree
+    if (root->data == key)
+    {
+        if (root->lchild != NULL) {
+            pred = maximumNode(root->lchild);
+        }
+    }
+ 
+    // if our key value is less than the root node value then we'll search in left subtree for key node
+    else if (key < root->data) {
+        findPredecessor(root->lchild, pred, key);
+    }
+ 
+    // if our key value is more than the root node value then we'll search in right subtree for key node
+    else if (key > root->data) {
+        // update predecessor to the current node before recursing in the right subtree
+        pred = root;
+        findPredecessor(root->rchild, pred, key);
+    }
+    if(pred==NULL)
+    return -1;
+    else
+    return pred->data;
+}
+
+
+// Function to find minimum node in a BST
+
+struct node* minimumNode(struct node* root)
+
+{
+
+    while (root->lchild) {
+
+        root = root->lchild;
+
+    }
+
+    return root;
+
+}
+
+ 
+
+// succ node is passed by reference meaning it is making changes in the original node
+
+/*int findSuccessor(struct node* root, struct node* succ, int key)
+
+{
+
+    succ = NULL;
+
+    
+
+    while(1){
+
+        
+
+        // if the root is our key node then the successor will be the smallest node in its right subtree
+
+        if (root->data == key)
+
+        {
+
+            if (root->rchild != NULL) {
+
+                succ = minimumNode(root->rchild);
+
+            }
+
+            break;
+
+        }
+
+     
+
+        // if our key value is less than the root node value then we'll search in left subtree for key node
+
+        else if (key < root->data) {
+
+            // update successor to the current node before searching in left subtree
+
+            succ = root;
+
+            root = root->lchild;
+
+        }
+
+     
+
+        // if our key value is more than the root node value then we'll search in right subtree for key node
+
+        else if (key > root->data) {
+
+            root = root->rchild;
+
+        }
+
+        
+
+        // simply return -1 if the key value doesn't exist in tree
+
+        if(root == NULL)
+        return -1;
+
+    }
+    if(succ==NULL)
+    return -1;
+    else
+
+    return succ->data;
+
+}*/
+
+struct node *findSuccessor(struct node *root,struct node *ptr)
+{
+
+struct node *successor=NULL;
+while(root!=NULL)
+{
+if(ptr->data>=root->data)
+root=root->rchild;
+else
+{
+successor=root;
+root=root->lchild;
+}}
+return successor;
+}
+
+
+struct node *findPre(struct node *root,struct node *ptr)
+{
+
+struct node *pre=NULL;
+while(root!=NULL)
+{
+if(ptr->data<=root->data)
+root=root->lchild;
+else
+{
+pre=root;
+root=root->rchild;
+}}
+return pre;
+}
+
+
+int height(struct node *p)
+{
+    int x,y;
+    if(p==NULL)
+    return 0;
+    else
+    {
+        x=height(p->lchild);
+        y=height(p->rchild);
+        return x>y?x+1:y+1;
+    }
+}
+
+/*Abdul Bari sir's Version of inorder predecessor and successor*/
+
+struct node *inpre(struct node *p)
+{
+    while(p && p->rchild!=NULL)    //right most node of the left subtree
+    p=p->rchild;
+
+    return p;
+}
+
+struct node *insucc(struct node *p)
+{
+    while(p && p->lchild!=NULL)    //leftmost node of the right sub tree
+    p=p->lchild;
+
+    return p;
+}
+
+struct node *delete(struct node *p,int key)
+{
+    struct node *q;
+    if(p==NULL)
+    return NULL;
+
+    if(p->lchild==NULL && p->rchild==NULL)
+    {
+        if(p==root)
+        root=NULL;
+        free(p);
+        return NULL;
+    }
+    if(key<p->data)
+    {
+        p->lchild=delete(p->lchild,key);
+    }
+    else if(key>p->data)
+    {
+        p->rchild=delete(p->rchild,key);
+    }
+    else
+    {
+        if(height(p->lchild)>height(p->rchild))
+        {
+            q=inpre(p->lchild);
+            p->data=q->data;
+            p->lchild=delete(p->lchild,q->data);
+        }
+        else        
+        {
+            q=insucc(p->rchild);
+            p->data=q->data;
+            p->rchild=delete(p->rchild,q->data);
+        }
+    }
+    return p;
+}
+
+int getLevelUtil(struct node* root, int data, int level)
 {
     if (root == NULL)
         return 0;
-    if (root->key == data)
+ 
+    if (root->data == data)
         return level;
-    int downLevel = getLevel(root->left, data, level + 1);
-    if (downLevel != 0)
-        return downLevel;
-    downLevel = getLevel(root->right, data, level + 1);
-    return downLevel;
+ 
+    int downlevel
+        = getLevelUtil(root->lchild, data, level + 1);
+    if (downlevel != 0)
+        return downlevel;
+ 
+    downlevel = getLevelUtil(root->rchild, data, level + 1);
+    return downlevel;
 }
-
-int getutilLevel(struct node *root, int data)
+ 
+/* Returns level of given data value */
+int getLevel(struct node* root, int data)
 {
-    return getLevel(root, data, 1);
+    return getLevelUtil(root, data, 1);
 }
 
 int main()
 {
+    int x,find,find1,level;
+    struct node *temp,*val;
     char ch;
-    int val;
-    int q;
-    struct node *found, *temp, *find;
     do
     {
-        scanf("%c", &ch);
-        switch (ch)
+        scanf("%c",&ch);
+        switch(ch)
         {
-        case 'a':
-            scanf("%d", &q);
-            root = Insert(root, q);
+            case 'a':scanf("%d",&x);
+            insert(x);
             break;
 
-        case 'i':
-            inorder(root);
+            case 's':scanf("%d",&x);
+            struct node* find2=search(x);
+            if(find2==NULL)
+            printf("-1\n");
+            else
+            printf("1\n");
+            break;
+
+            case 'x':find=max(root);
+            if(find==-1)
+            printf("NIL\n");
+            else
+            printf("%d\n",find);
+            break;
+
+            case 'm':find1=min(root);
+            if(find1==-1)
+            printf("NIL\n");
+            else
+            printf("%d\n",find1);
+            break;
+
+            case 'i':inorder(root);
             printf("\n");
             break;
 
-        case 'p':
-            preorder(root);
+            case 'p':preorder(root);
             printf("\n");
             break;
 
-        case 't':
-            postorder(root);
+            case 't':postorder(root);
             printf("\n");
             break;
 
-        case 's':
-            scanf("%d", &q);
-            found = search(root, q);
-            if (found == NULL)
-                printf("-1\n");
-            else
-                printf("1\n");
-            break;
-
-        case 'l':
-            scanf("%d", &q);
-            if (search(root, q) == NULL)
-                printf("-1\n");
+            case 'r':scanf("%d",&x);
+            temp=search(x);
+            if(temp==NULL)
+            printf("-1\n");
             else
             {
-                val = getutilLevel(root, q);
-                printf("%d\n", val);
+            val=findPre(root,temp);
+            if(val==NULL)
+            printf("-1\n");
+            else
+            printf("%d\n",val->data);
             }
-
             break;
-
-        case 'm':
-            q = min(root);
-            printf("%d\n", q);
-            break;
-
-        case 'x':
-            q = max(root);
-            printf("%d\n", q);
-            break;
-
-        case 'd':
-            scanf("%d", &q);
-            if (search(root, q) != NULL)
-            {
-                root = delete (root, q);
-            }
-            else
-                printf("-1\n");
-
-            break;
-
-        case 'r':
-            scanf("%d", &val);
-
-            find = search(root, val);
-            if (find == NULL)
-                printf("-1\n");
+            
+            case 'u':scanf("%d",&x);
+            temp=search(x);
+            if(temp==NULL)
+            printf("-1\n");
             else
             {
-                temp = inorderPre(find->left);
-                if (temp == NULL)
-                    printf("-1\n");
-                else
-                    printf("%d\n", temp->key);
+            val=findSuccessor(root,temp);
+            if(val==NULL)
+            printf("-1\n");
+            else
+            printf("%d\n",val->data);
             }
             break;
 
-        case 'u':
-            scanf("%d", &val);
-
-            find = search(root, val);
-            if (find == NULL)
-                printf("-1\n");
+            case 'd':scanf("%d",&x);
+            struct node *y=search(x);
+            if(y==NULL)
+            printf("-1\n");
             else
             {
-                temp = inorderSucc(find->right);
-                if (temp == NULL)
-                    printf("-1\n");
-                else
-                    printf("%d\n", temp->key);
+            delete(root,x);
             }
             break;
+            
+            case 'l':scanf("%d",&x);
+            level=getLevel(root, x);
+            if(level!=0)
+            printf("%d\n",level);
+            else
+            printf("-1\n");
+            break;
+            case 'e':return 0;
 
-        case 'e':
-            return 0;
         }
-    } while (ch != 'e');
+    }while(ch!='e');
+    
     return 0;
 }
