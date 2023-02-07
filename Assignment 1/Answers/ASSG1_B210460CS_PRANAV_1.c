@@ -187,30 +187,37 @@ descendant or ancestor*/
     return -1;
 }*/
 
-int main()
-{
-
-    char *str = (char *)malloc(1000 * sizeof(char));
-    scanf("%[^\n]s", str);
-
-    struct BinaryTree *bt = (struct BinaryTree *)malloc(sizeof(struct BinaryTree));
-    bt->root = BUILD_TREE(str);
-    int x, dist;
-    int depth = -1;
-    scanf("%d%d", &x, &dist);
-    struct Node *found = find(bt->root, x);
-    if (found == NULL)
+int main(){
+    
+    char* str  = (char*)malloc(1000 * sizeof(char));
+    scanf("%[^\n]s", str); 
+    
+    struct BinaryTree* bt = (struct BinaryTree*)malloc(sizeof(struct BinaryTree));
+    bt->root = BUILD_TREE(str); 
+    int x,dist;
+    int depth=-1;
+    scanf("%d%d",&x,&dist);
+    struct Node *found=find1(bt->root,x);
+    if(found==NULL)
     {
-        printf("-1\n");
+    printf("-1\n");
     }
     else
     {
-        // printNodesatk(bt->root,found,dist);                           //To Print all the nodes at k-th distance, both ancestors and descendants
-        //  nth_dist(found,depth,dist);                                  //Method-I
-        //  nth_dist_variation(found,depth,dist);                        //Method-II
-        printSubtreeNodes(found, dist); // Method-III
+    // if(found!=NULL)
+    // {
+    //     kdes(found,dist);
+    // }
+    // else
+    // printf("-1\n");
+    // printNodesatk(bt->root,found,dist);
+    // printf("\n");
+    struct Node *returnedVal;
+    if(returnedVal==NULL)
+    printf("-1\n");
+    else
+    //printSubtreeNodes(found,dist);
+    nth_dist(found,depth,dist);
     }
-
     return 0;
 }
-
