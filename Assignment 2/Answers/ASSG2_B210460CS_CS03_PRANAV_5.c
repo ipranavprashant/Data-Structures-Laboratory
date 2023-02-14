@@ -45,10 +45,6 @@ int BalanceFactor(struct Node *p) {
         hr=height(p->rchild);
         return hl-hr;
     }
-    // hl = (p && p->lchild) ? p->lchild->height : 0;
-    // hr = (p && p->rchild) ? p->rchild->height : 0;
- 
-    // return hl - hr;
 }
 
 struct Node *LLRotation(struct Node *p) {
