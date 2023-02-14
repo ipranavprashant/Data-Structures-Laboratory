@@ -36,11 +36,19 @@ struct Node *InSucc(struct Node *p) {
 int BalanceFactor(struct Node *p) {
     int hl;
     int hr;
+    
+    if(root==NULL)
+    return 0;
+    else
+    {
+        hl=height(p->lchild);
+        hr=height(p->rchild);
+        return hl-hr;
+    }
+    // hl = (p && p->lchild) ? p->lchild->height : 0;
+    // hr = (p && p->rchild) ? p->rchild->height : 0;
  
-    hl = (p && p->lchild) ? p->lchild->height : 0;
-    hr = (p && p->rchild) ? p->rchild->height : 0;
- 
-    return hl - hr;
+    // return hl - hr;
 }
 
 
@@ -313,4 +321,3 @@ int main()
     } while (ch != 'e');
     return 0;
 }
-
