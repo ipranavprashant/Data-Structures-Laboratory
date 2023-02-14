@@ -51,38 +51,57 @@ int BalanceFactor(struct Node *p) {
     // return hl - hr;
 }
 
-
-void Insert(int key)
+struct Node *createNode(int key)
 {
-    struct Node *t = root;
-    struct Node *r = NULL, *p;
-    if (root == NULL)
-    {
-        p = (struct Node *)malloc(sizeof(struct Node));
-        p->data = key;
-        p->height = 1;
-        p->lchild = p->rchild = NULL;
-        root = p;
-        return;
-    }
-    while (t != NULL)
-    {
-        r = t;
-        if (key < t->data)
-            t = t->lchild;
-        else if (key > t->data)
-            t = t->rchild;
-        else
-            return;
-    }
-    p = (struct Node *)malloc(sizeof(struct Node));
-    p->data = key;
-    p->lchild = p->rchild = NULL;
-    if (key < r->data)
-        r->lchild = p;
-    else
-        r->rchild = p;
+    struct Node *temp=(struct Node *)malloc(sizeof(struct Node));
+    temp->data=key;
+    temp->height=1;
+    temp->lchild=NULL;
+    temp->rchild=NULL;
+    return temp;
 }
+
+struct Node *Insert(int key)
+{
+    if(root==NULL)
+    return createNode(key);
+    else if(key<root->data)
+    root->lchild=Insert(key);
+    else
+    root->rchild=Insert(key);
+}
+
+// void Insert(int key)
+// {
+//     struct Node *t = root;
+//     struct Node *r = NULL, *p;
+//     if (root == NULL)
+//     {
+//         p = (struct Node *)malloc(sizeof(struct Node));
+//         p->data = key;
+//         p->height = 1;
+//         p->lchild = p->rchild = NULL;
+//         root = p;
+//         return;
+//     }
+//     while (t != NULL)
+//     {
+//         r = t;
+//         if (key < t->data)
+//             t = t->lchild;
+//         else if (key > t->data)
+//             t = t->rchild;
+//         else
+//             return;
+//     }
+//     p = (struct Node *)malloc(sizeof(struct Node));
+//     p->data = key;
+//     p->lchild = p->rchild = NULL;
+//     if (key < r->data)
+//         r->lchild = p;
+//     else
+//         r->rchild = p;
+// }
 struct Node *LLRotation(struct Node *p) {
     struct Node* pl = p->lchild;
     struct Node* plr = pl->rchild;
