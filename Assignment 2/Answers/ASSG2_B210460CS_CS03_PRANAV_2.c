@@ -119,6 +119,33 @@ void SortedInsert(struct Node **H, int x, struct studentBST *root)
     }
 }
 
+
+struct Node *Search(struct Node *p, int key)
+{
+    while (p != NULL)
+    {
+        if (key == p->data)
+        {
+            return p;
+        }
+        p = p->next;
+    }
+    return NULL;
+}
+/*Linked List Helper Functions*/
+
+int hash(int key)
+{
+    return key;
+}
+
+void Insert(struct Node *H[], int key, struct studentBST *root)
+{
+    int index = hash(key);
+    SortedInsert(&H[index], key, root);
+}
+
+
 struct studentBST *bstSearchPrint(struct studentBST *root, char *firstName, char *lastName)
 {
     if (root == NULL)
@@ -133,7 +160,7 @@ struct studentBST *bstSearchPrint(struct studentBST *root, char *firstName, char
         if (strcmp(firstName, root->firstName) < 0)
         {
             // count++;
-            printf("-L");
+            printf("L");
             bstSearchPrint(root->lchild, firstName, lastName);
         }
         else if (strcmp(firstName, root->firstName) == 0 && strcmp(lastName, root->lastName) != 0)
@@ -141,20 +168,20 @@ struct studentBST *bstSearchPrint(struct studentBST *root, char *firstName, char
             if (strcmp(lastName, root->lastName) < 0)
             {
                 // count++;
-                printf("-L");
+                printf("L");
                 bstSearchPrint(root->lchild, firstName, lastName);
             }
             else
             {
                 // count++;
-                printf("-R");
+                printf("R");
                 bstSearchPrint(root->rchild, firstName, lastName);
             }
         }
         else if (strcmp(firstName, root->firstName) > 0)
         {
             // count++;
-            printf("-R");
+            printf("R");
             bstSearchPrint(root->rchild, firstName, lastName);
         }
     }
@@ -195,30 +222,6 @@ struct studentBST *bstSearch(struct studentBST *root, char *firstName, char *las
             bstSearch(root->rchild, firstName, lastName);
         }
     }
-}
-struct Node *Search(struct Node *p, int key)
-{
-    while (p != NULL)
-    {
-        if (key == p->data)
-        {
-            return p;
-        }
-        p = p->next;
-    }
-    return NULL;
-}
-/*Linked List Helper Functions*/
-
-int hash(int key)
-{
-    return key;
-}
-
-void Insert(struct Node *H[], int key, struct studentBST *root)
-{
-    int index = hash(key);
-    SortedInsert(&H[index], key, root);
 }
 
 struct studentBST *actualRoot(char key)
@@ -547,7 +550,7 @@ int main()
                     printf("-1\n");
                 else
                 {
-                    printf("%d", temp->data);
+                    printf("%d-", temp->data);
                     bstSearchPrint(actualRootVal, firstName, lastName);
                     printf("\n");
                 }
@@ -599,4 +602,3 @@ int main()
 
     return 0;
 }
-
