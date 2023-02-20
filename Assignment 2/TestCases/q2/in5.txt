@@ -1,0 +1,41 @@
+u
+Ravi Potdar 8.0
+d
+Ravi Potdar
+i
+Arnab Singh M 12-05-2003 CSED 8.5
+i
+Vivek Rai M 17-05-2002 ECED 9.0
+i
+Akanksha Gangwar F 19-08-2002 EED 9.0
+i
+Alka MR F 16-04-2003 MED 7.15
+i
+Nirmala Kumari F 20-10-2003 EED 8.15
+i
+Arvind Kumar M 08-12-2003 ECED 9.15
+i
+Aryan Joshi M 20-03-2003 CSED 8.36
+i
+Anagha Chand F 19-09-2003 MED 9.0
+i
+Shubham Dixit M 18-08-2003 CSED 8.0
+i
+Ayushi Kumari F 31-01-2003 MED 8.25
+u
+Niraj Patil 8.0
+d
+Akanksha Gangwar
+l
+Niraj Patil
+d
+Arnab Singh
+u
+Aryan Joshi 8.71
+l
+Ayushi Kumari
+u
+Anagha Chand 8.75
+l
+Anagha Chand
+e

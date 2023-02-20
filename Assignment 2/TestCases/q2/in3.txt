@@ -1,0 +1,25 @@
+i
+Arnab Singh M 12-05-2003 CSED 8.5
+i
+Aryan Joshi M 20-03-2003 CSED 8.36
+i
+Vivek Rai M 17-05-2002 ECED 9.0
+i
+Rajni Sharma F 09-07-2003 EED 9.0
+i
+Shubham Dixit M 18-08-2003 CSED 8.0
+i
+Anagha Chand F 19-09-2003 MED 9.0
+i
+Nirmala Kumari F 20-10-2003 EED 8.15
+u
+Arnab Singh 8.63
+u
+Aryan Joshi 8.71
+u
+Anagha Chand 8.75
+u
+Shubham Dixit 7.85
+u
+Niraj Patil 8.0
+e
