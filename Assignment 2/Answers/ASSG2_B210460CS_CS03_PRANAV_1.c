@@ -102,8 +102,8 @@ int main()
             }
             if (count == 0)
                 printf("-1");
-            else
-                printf("%d ", count);
+            /*else
+                printf("%d ", count);*/
             for (int i = 0; i < k; i++)
             {
                 if (ans[i].val == q && strcmp(ans[i].branch, dept) == 0)
@@ -129,8 +129,8 @@ int main()
             }
             if (count == 0)
                 printf("-1");
-            else
-                printf("%d ", count);
+            /*else
+                printf("%d ", count);*/
             for (int i = 0; i < k; i++)
             {
                 if (ans[i].val == q && strcmp(ans[i].branch, dept) == 0)
@@ -156,8 +156,8 @@ int main()
             }
             if (count == 0)
                 printf("-1");
-            else
-                printf("%d ", count);
+            /*else
+                printf("%d ", count);*/
             for (int i = 0; i < k; i++)
             {
                 if (ans[i].val == q && strcmp(ans[i].branch, dept) == 0)
@@ -165,9 +165,9 @@ int main()
             }
             printf("\n");
             break;
-        case '4':
+        case '0':
             count = 0;
-            q = 4;
+            q = 0;
             scanf("%s", dept);
             if (dept[0] >= 97 && dept[0] <= 122)
                 dept[0] -= 32;
@@ -183,8 +183,8 @@ int main()
             }
             if (count == 0)
                 printf("-1");
-            else
-                printf("%d ", count);
+            /*else
+                printf("%d ", count);*/
             for (int i = 0; i < k; i++)
             {
                 if (ans[i].val == q && strcmp(ans[i].branch, dept) == 0)
@@ -199,4 +199,3 @@ int main()
     } while (ch != 'e');
     return 0;
 }
-
