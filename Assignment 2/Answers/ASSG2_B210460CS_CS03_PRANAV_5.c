@@ -74,7 +74,7 @@ struct Node *LRRotation(struct Node *p) {
     p->height = height(p);
     plr->height = height(plr);
  
-    if (p == root){
+    if (root == p){
         root = plr;
     }
     return plr;
