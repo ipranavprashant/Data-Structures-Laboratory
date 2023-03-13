@@ -192,7 +192,7 @@ void PRINT(struct Node *root)
     printf(") ");
 }
 
-struct Node *Delete(struct Node *p, int key) {
+/*struct Node *Delete(struct Node *p, int key) {
     if (p == NULL){
         return NULL;
     }
@@ -239,6 +239,70 @@ struct Node *Delete(struct Node *p, int key) {
     }
  
     return p;
+}*/
+
+//Modified version according to the modifications required
+
+struct Node *delete(struct Node *p,int key)
+{
+    struct Node *q=NULL;
+        if(p==NULL)
+            return NULL;
+        if(p->lchild==NULL && p->rchild==NULL)
+        {
+            if(p==root)
+                root=NULL;
+            free(p);
+            return NULL;
+        }
+
+        if(key< p->data)
+            p->lchild=delete(p->lchild, key);
+        else if(key >p->data)
+            p->rchild=delete(p->rchild, key);
+        else
+        {
+           // if(height_node(p->lchild)>height_node(p->rchild))
+           // {
+                q=InPre(p->lchild);
+                p->data=q->data;
+                p->lchild=delete(p->lchild, q->data);
+            //}
+//            else
+//            {
+//                q=InSucc(p->rchild);
+//                p->k=q->k;
+//                p->rchild=delete(p->rchild, q->k);
+//            }
+        }
+       
+    if (BalanceFactor(p) == 2 && BalanceFactor(p->lchild) == 1)
+    {
+           return LLRotation(p);
+       }
+       else if (BalanceFactor(p) == 2 && BalanceFactor(p->lchild) == -1)
+       {
+           return LRRotation(p);
+       }
+       else if (BalanceFactor(p) == -2 && BalanceFactor(p->rchild) == -1)
+       {
+           return RRRotation(p);
+       }
+       else if (BalanceFactor(p) == -2 && BalanceFactor(p->rchild) == 1)
+       {
+           return RLRotation(p);
+       }
+       else if (BalanceFactor(p) == 2 && BalanceFactor(p->lchild) == 0)
+       {
+           return LLRotation(p);
+       }
+       else if (BalanceFactor(p) == -2 && BalanceFactor(p->rchild) == 0)
+       {
+           return RRRotation(p);
+       }
+    
+       return p;
+
 }
 
 int main()
@@ -286,7 +350,7 @@ int main()
             else
             {
                 printf("%d\n", temp->data);
-                Delete(root,q);
+                delete(root,q);
             }
             break;
         }
