@@ -37,7 +37,7 @@ int BalanceFactor(struct Node *p) {
     int hl;
     int hr;
     
-    if(root==NULL)
+    if(p==NULL)
     return 0;
     else
     {
