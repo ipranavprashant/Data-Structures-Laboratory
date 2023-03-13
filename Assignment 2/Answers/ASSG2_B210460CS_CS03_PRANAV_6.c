@@ -1,8 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int arr[10000];
-int flag = 0;
+int a[10000];
+int ind=0;
+
+void insertionSort(int arr[],int size)
+{
+    for(int i=1;i<size;i++)
+    {
+        int j=i-1;
+        int key=arr[i];
+        while(j>-1 && arr[j]>key)
+        {
+            arr[j+1]=arr[j];
+            j--;
+        }
+        arr[j+1]=key;
+    }
+}
+
 struct Node
 {
     struct Node *lchild;
@@ -181,15 +197,6 @@ struct Node *RInsert(struct Node *p, int key)
 
     return p;
 }
-void Inorder(struct Node *p)
-{
-    if (p)
-    {
-        Inorder(p->lchild);
-        arr[flag++] = root->data;
-        Inorder(p->rchild);
-    }
-}
 
 int countNodes(struct Node *root)
 {
@@ -230,11 +237,12 @@ int main()
         case 'i':
             scanf("%d", &q);
             root = RInsert(root, q);
+            a[ind++]=q;
+            insertionSort(a,ind);
             break;
         case 'g':
-            Inorder(root);
             q = getMedian(root);
-            printf("%d\n", arr[q]);
+            printf("%d\n", a[q-1]);
             break;
         case 't':
             return 0;
