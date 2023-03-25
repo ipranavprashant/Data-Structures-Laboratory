@@ -1,11 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int cmpfunc(const void *a, const void *b) { return (*(int *)a - *(int *)b); }
+void insertionSort(int arr[], int size) {
+  for (int i = 0; i < size; i++) {
+    int j = i - 1;
+    int key = arr[i];
+    while (j > -1 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = key;
+  }
+}
 
 int min_cost_to_connect_ropes(int ropes[], int n) {
   int total_cost = 0;
-  qsort(ropes, n, sizeof(int), cmpfunc);
+  insertionSort(ropes, n);
   while (n > 1) {
     int cost = ropes[0] + ropes[1];
     total_cost += cost;
