@@ -4,38 +4,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
- /*
- #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-int main ()
-{
-  int a[10000];
-  int k = 0;
-  char str[10000];
-  do
-    {
-      scanf ("%s", str);
-      switch (str[0])
-	{
-	case 't':
-	  for (int i = 0; i < k; i++)
-	    printf ("%d ", a[i]);
-	    return 0;
-	  break;
-	default:
-	  int val = atoi (str);
-	  a[k++] = val;
-	  printf ("%d\n", val);
-	  break;
-	}
-    }while (1);
-    
-  return 0;
-}
-
- */
 // Structure to represent each
 // node in a red-black tree
 struct node {
