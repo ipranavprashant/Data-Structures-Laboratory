@@ -16,6 +16,7 @@ int main()
     {
         case 'i':scanf("%d",&q);
         arr[++k]=q;
+        minheap(arr,0,k);
         // k++;
         break;
         
@@ -31,9 +32,9 @@ int main()
             arr[i]=arr[i+1];
         }
         k--;*/
-            int t=arr[1];
+            int to=arr[1];
             arr[1]=arr[k];
-            arr[k]=t;
+            arr[k]=to;
             k--;
         minheap(arr,0,k);
         for(int i=1;i<=k;i++)
@@ -77,7 +78,9 @@ int main()
         else
         {
             printf("%d\n",y);
+            minheap(arr,0,k);
         }
+        
         break;
         
         case 'e':return 0;
