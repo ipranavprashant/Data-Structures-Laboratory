@@ -26,11 +26,15 @@ int main()
         }
         printf("\n");break;
         
-        case 'x':for(int  i=1;i<=k-1;i++)   //k-1 since k-1+1=k
+        case 'x':/*for(int  i=1;i<=k-1;i++)   //k-1 since k-1+1=k
         {
             arr[i]=arr[i+1];
         }
-        k--;
+        k--;*/
+            int t=arr[1];
+            arr[1]=arr[k];
+            arr[k]=t;
+            k--;
         minheap(arr,0,k);
         for(int i=1;i<=k;i++)
         {
@@ -46,23 +50,29 @@ int main()
         else
         {
             printf("%d\n",arr[index]);
-            for(int i=index;i<=k-1;i++)
+            int t=arr[index];
+            arr[index]=arr[k];
+            arr[k]=t;
+            k--;
+            /*for(int i=index;i<=k-1;i++)
             {
                 arr[i]=arr[i+1];
             }
-            k--;
+            k--;*/
         }
         break;
         
-        case 'g':printf("%d\n",arr[1]);
+        case 'g':minheap(arr,0,k);
+        printf("%d\n",arr[1]);
         break;
 
         
         case 'r':int x,y;
         scanf("%d",&x);
         scanf("%d",&y);
+        int val=search(arr,k,x);
         int ans=handlingSwap(arr,k,x,y);
-        if(ans==-1)
+        if(val==-1 || ans==-1)
         printf("-1\n");
         else
         {
@@ -123,6 +133,6 @@ int handlingSwap(int a[],int size,int key,int replaceWith)
     {
         int index1=search(a,size,key);
         a[index1]=replaceWith;
+        return index1;
     }
 }
-
